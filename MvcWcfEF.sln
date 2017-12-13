@@ -5,10 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfServiceApp", "WcfServiceApp\WcfServiceApp.csproj", "{E75D1723-CBA8-4BAE-BF69-7FCA004B0666}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicianDirectory", "..\PhysicianDirectory - Copy\PhysicianDirectory\PhysicianDirectory.csproj", "{2B41C4D1-8189-492F-97AE-CFB46E742A02}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E75D1723-CBA8-4BAE-BF69-7FCA004B0666} = {E75D1723-CBA8-4BAE-BF69-7FCA004B0666}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicianDirectory", "PhysicianDirectory\PhysicianDirectory.csproj", "{2B41C4D1-8189-492F-97AE-CFB46E742A02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

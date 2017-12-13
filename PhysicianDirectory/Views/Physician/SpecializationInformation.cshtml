@@ -1,0 +1,54 @@
+﻿@model IEnumerable<PhysicianDirectory.Models.Physician>
+
+@{
+    ViewBag.Title = "SpecializationInformation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using PhysicianDirectory.Utilities;
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/viewList.css")
+<h2>Specialization Information</h2>
+
+
+    <a href="/Physician/AddUser" class="btn btn-default" name="Add Physician" style="float: right ;  border: 2px solid #112753">Add Physician</a>
+
+<br />
+<br />
+<p>
+    <div class="icon-bar">
+
+        <a href="/Physician/PersonalInformation">Personal Information</a>
+        <a href="/Physician/ContactInformation">Contact Information</a>
+        <a class="active" href="/Physician/SpecializationInformation">Specialization</a>
+
+    </div>
+
+
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Specialization.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Specialization.Description)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Specialization.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Specialization.Description)
+        </td>
+        
+        
+    </tr>
+}
+
+</table>
