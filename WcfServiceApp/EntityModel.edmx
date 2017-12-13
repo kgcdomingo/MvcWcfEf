@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DirectoryDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DirectoryDBModelStoreContainer">
+    <EntitySet Name="ContactInfoes" EntityType="DirectoryDBModel.Store.ContactInfoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Physicians" EntityType="DirectoryDBModel.Store.Physicians" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Specializations" EntityType="DirectoryDBModel.Store.Specializations" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_PhysicianContactInfo" Association="DirectoryDBModel.Store.FK_PhysicianContactInfo">
+      <End Role="Physicians" EntitySet="Physicians" />
+      <End Role="ContactInfoes" EntitySet="ContactInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhysicianSpecialization" Association="DirectoryDBModel.Store.FK_PhysicianSpecialization">
+      <End Role="Physicians" EntitySet="Physicians" />
+      <End Role="Specializations" EntitySet="Specializations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ContactInfoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="HomeAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HomePhone" Type="bigint" Nullable="true" />
+    <Property Name="OfficeAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OfficePhone" Type="bigint" Nullable="false" />
+    <Property Name="EmailAdd" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CellphoneNumber" Type="bigint" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Physicians">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Weight" Type="int" Nullable="true" />
+    <Property Name="Height" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Specializations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_PhysicianContactInfo">
+    <End Role="Physicians" Type="DirectoryDBModel.Store.Physicians" Multiplicity="1" />
+    <End Role="ContactInfoes" Type="DirectoryDBModel.Store.ContactInfoes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Physicians">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContactInfoes">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhysicianSpecialization">
+    <End Role="Physicians" Type="DirectoryDBModel.Store.Physicians" Multiplicity="1" />
+    <End Role="Specializations" Type="DirectoryDBModel.Store.Specializations" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Physicians">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Specializations">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DirectoryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ContactInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="HomeAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HomePhone" Type="Int64" />
+          <Property Name="OfficeAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OfficePhone" Type="Int64" Nullable="false" />
+          <Property Name="EmailAdd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CellphoneNumber" Type="Int64" />
+          <NavigationProperty Name="Physician" Relationship="Self.FK_PhysicianContactInfo" FromRole="ContactInfoes" ToRole="Physicians" />
+        </EntityType>
+        <EntityType Name="Physician">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="Height" Type="Int32" />
+          <NavigationProperty Name="ContactInfo" Relationship="Self.FK_PhysicianContactInfo" FromRole="Physicians" ToRole="ContactInfoes" />
+          <NavigationProperty Name="Specialization" Relationship="Self.FK_PhysicianSpecialization" FromRole="Physicians" ToRole="Specializations" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Physician" Relationship="Self.FK_PhysicianSpecialization" FromRole="Specializations" ToRole="Physicians" />
+        </EntityType>
+        <Association Name="FK_PhysicianContactInfo">
+          <End Role="Physicians" Type="Self.Physician" Multiplicity="1" />
+          <End Role="ContactInfoes" Type="Self.ContactInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Physicians">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContactInfoes">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhysicianSpecialization">
+          <End Role="Physicians" Type="Self.Physician" Multiplicity="1" />
+          <End Role="Specializations" Type="Self.Specialization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Physicians">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specializations">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ContactInfoes" EntityType="Self.ContactInfo" />
+          <EntitySet Name="Physicians" EntityType="Self.Physician" />
+          <EntitySet Name="Specializations" EntityType="Self.Specialization" />
+          <AssociationSet Name="FK_PhysicianContactInfo" Association="Self.FK_PhysicianContactInfo">
+            <End Role="Physicians" EntitySet="Physicians" />
+            <End Role="ContactInfoes" EntitySet="ContactInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhysicianSpecialization" Association="Self.FK_PhysicianSpecialization">
+            <End Role="Physicians" EntitySet="Physicians" />
+            <End Role="Specializations" EntitySet="Specializations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DirectoryDBModelStoreContainer" CdmEntityContainer="TestDBEntities">
+    <EntitySetMapping Name="ContactInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(DirectoryDBModel.ContactInfo)">
+        <MappingFragment StoreEntitySet="ContactInfoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="OfficeAddress" ColumnName="OfficeAddress" />
+          <ScalarProperty Name="OfficePhone" ColumnName="OfficePhone" />
+          <ScalarProperty Name="EmailAdd" ColumnName="EmailAdd" />
+          <ScalarProperty Name="CellphoneNumber" ColumnName="CellphoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Physicians">
+      <EntityTypeMapping TypeName="IsTypeOf(DirectoryDBModel.Physician)">
+        <MappingFragment StoreEntitySet="Physicians">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Specializations">
+      <EntityTypeMapping TypeName="IsTypeOf(DirectoryDBModel.Specialization)">
+        <MappingFragment StoreEntitySet="Specializations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
